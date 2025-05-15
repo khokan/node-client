@@ -16,6 +16,7 @@ const router = createBrowserRouter([
       {
        index: true, 
        Component: Home,
+       loader: () => fetch('http://localhost:5000/coffees')
       },      
       {
           path: 'add-coffee',
