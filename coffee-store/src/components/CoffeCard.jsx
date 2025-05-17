@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
-    const CoffeCard = ({coffee}) => {
-        console.log(coffee)
+    const CoffeCard = ({coffee, coffees, setCoffees}) => {
         const {_id, name, quantiy, price,photo, taste} = coffee;
 
     const handleDelete = (_id) =>
@@ -23,8 +24,8 @@ import React from 'react';
                 .then(res =>res.json())
                 .then(data => {                    
                     if(data.deletedCount > 0){
-                        // const remianing = userData.filter(user => user._id != id)
-                        // setUsers(remianing)
+                        const remianing = coffees.filter(coffee => coffee._id != _id)
+                        setCoffees(remianing)
                         console.log('after deleted',data)
                     }
                 })
@@ -55,7 +56,7 @@ import React from 'react';
                 <div className="card-actions justify-end">
                  <div className="join join-vertical space-y-2">
                     <button className="btn join-item">View</button>
-                    <button className="btn join-item">Edit</button>
+                    <Link to={`/update-coffee/${_id}`} className="btn join-item">Edit</Link>
                     <button onClick={() => handleDelete(_id)} className="btn join-item">X</button>
                  </div>
                 </div>
