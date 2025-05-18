@@ -8,14 +8,16 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth } from "../firebase/firebase.config";
+
 import toast from "react-hot-toast";
+import { auth } from "../firebase/firebase.config";
+
 
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // button refresh waitn for loading to go to login page
+  const [loading, setLoading] = useState(true); // button refresh waitn for loading to go to SignIn page
 
   const createUser = (email, password) => {
     setLoading(true);

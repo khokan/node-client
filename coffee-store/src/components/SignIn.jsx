@@ -1,11 +1,10 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext";
 import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../contexts/AuthContext";
 
-const Login = () => {
+const SignIn = () => {
   const { signInUser, signInGoogle } = use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,7 +12,7 @@ const Login = () => {
   const emailRef = useRef();
   const [result, setResult] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -59,13 +58,10 @@ useEffect(() => {
 
   return (
     <>
-      <Helmet>
-        <title>Login | Subscription Box</title>
-      </Helmet>
       <div className="flex justify-center items-center mt-2 ">
-        <div className="card w-full max-w-sm shrink-0 shadow-2xl py-5 bg-[#f0e9ff]">
-          <h2 className="font-semibold text-xl text-center">Login Page</h2>
-          <form onSubmit={handleLogin} className="card-body">
+        <div className="card w-full max-w-sm shrink-0 shadow-2xl py-5">
+          <h2 className="font-semibold text-xl text-center">SignIn Page</h2>
+          <form onSubmit={handleSignIn} className="card-body">
             <fieldset className="fieldset">
               <label className="label">Email</label>
               <input
@@ -86,19 +82,19 @@ useEffect(() => {
                 <a className="link link-hover">Forgot password?</a>
               </div>
               <button type="submit" className="btn btn-primary mt-4">
-                Login
+                SignIn
               </button>
               <button
                 onClick={handleSignInGoogle}
                 className="btn bg-white text-black border-[#e5e5e5]"
               >
                 <FaGoogle />
-                Login with Google
+                SignIn with Google
               </button>
               <p className="mt-2 text-center">
                 Don’t Have An Account ?{" "}
-                <Link className="text-secondary" to="/registration">
-                  Register
+                <Link className="text-secondary" to="/SignUp">
+                Sign Up
                 </Link>
                 {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
               </p>
@@ -111,4 +107,4 @@ useEffect(() => {
   );
 };
 
-export default Login;
+export default SignIn;

@@ -1,11 +1,10 @@
 import React, { use, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../contexts/AuthContext";
 
-const Registration = () => {
+const SignUp = () => {
   const { createUser, signInGoogle } = use(AuthContext);
   const [error, setError] = useState("");
   const [result, setResult] = useState(false);
@@ -13,12 +12,16 @@ const Registration = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleRegistration = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const form = e.target;
+    const formData = new FormData(form);
+    const {email, password, ...userProfile} = Object.fromEntries(formData.entries());
+    console.log(userProfile)
+
+    // const email = formData.get('email')
+    // const password = formData.get('password')
+
     setError("");
     setResult(false);
 
@@ -61,15 +64,12 @@ const Registration = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Registration | Subscription Box</title>
-      </Helmet>
       <div className="flex justify-center items-center">
-        <div className="card bg-[#f0e9ff] w-full max-w-sm shrink-0 shadow-2xl py-3">
+        <div className="card w-full max-w-sm shrink-0 shadow-2xl py-3">
           <h2 className="font-semibold text-xl text-center">
-            Registration Page
+          SignUp Page
           </h2>
-          <form onSubmit={handleRegistration} className="card-body">
+          <form onSubmit={handleSignUp} className="card-body">
             <fieldset className="fieldset">
               <label className="label">Name</label>
               <input
@@ -112,14 +112,24 @@ const Registration = () => {
                   {visible ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
+              <label className="label">Address</label>
+              <div>
+                <input
+                  type="text"
+                  name="address"
+                  className="input"
+                  placeholder="Address"
+                />
+           
+              </div>
               <button type="submit" className="btn btn-primary mt-4">
-                Registration
+              SignUp
               </button>
               <p className="mt-2 text-center">
                 {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
                 Already Have An Account ?{" "}
-                <Link className="text-secondary" to="/login">
-                  Login
+                <Link className="text-secondary" to="/SignIn">
+                  SignIn
                 </Link>
               </p>
               <button
@@ -127,7 +137,7 @@ const Registration = () => {
                 className="btn bg-white text-black border-[#e5e5e5]"
               >
                 <FaGoogle />
-                Login with Google
+                SignIn with Google
               </button>
             </fieldset>
           </form>
@@ -137,4 +147,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default SignUp;
