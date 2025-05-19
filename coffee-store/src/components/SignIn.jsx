@@ -21,6 +21,20 @@ const SignIn = () => {
     signInUser(email, password)
       .then((result) => {
         setResult(true);
+
+        const signInInfo = {
+            email: email,
+            lastSignInTime: result.user?.metadata?.lastSignInTime
+        }
+
+        fetch('http://localhost:5000/users',{
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(signInInfo)
+        }).then(res => res.json())
+        .then(data => console.log('after signIn update', data))
         navigate(location?.state || "/");
       })
       .catch((error) => {
@@ -34,6 +48,7 @@ const SignIn = () => {
     signInGoogle()
       .then((result) => {
         setResult(true);
+
         navigate(location?.state || "/");
       })
       .catch((error) => {

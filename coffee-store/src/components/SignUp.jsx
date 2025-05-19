@@ -43,7 +43,7 @@ const SignUp = () => {
           email,
           ...restData,
           creationTime: result.user?.metadata.creationTime,
-          insertionTime: result.user?.metadata.lastSignInTime,
+          lastSignInTime: result.user?.metadata.lastSignInTime,
         };
 
         // save profile into database
@@ -104,7 +104,7 @@ const SignUp = () => {
               <label className="label">Name</label>
               <input
                 type="text"
-                name="name`"
+                name="name"
                 className="input"
                 placeholder="Name"
                 required
