@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { createUser, signInGoogle } = use(AuthContext);
@@ -16,8 +17,9 @@ const SignUp = () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const {email, password, ...userProfile} = Object.fromEntries(formData.entries());
-    console.log(userProfile)
+    const { email, password, ...restData } = Object.fromEntries(
+      formData.entries()
+    );
 
     // const email = formData.get('email')
     // const password = formData.get('password')
@@ -35,6 +37,36 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
+        console.log(result.user);
+
+        const userProfile = {
+          email,
+          ...restData,
+          creationTime: result.user?.metadata.creationTime,
+          insertionTime: result.user?.metadata.lastSignInTime,
+        };
+
+        // save profile into database
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "Application/json",
+          },
+          body: JSON.stringify(userProfile),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId)
+              console.log("after creating profile in the database", data);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "data been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+
         setResult(true);
         navigate(location?.state || "/");
       })
@@ -66,9 +98,7 @@ const SignUp = () => {
     <>
       <div className="flex justify-center items-center">
         <div className="card w-full max-w-sm shrink-0 shadow-2xl py-3">
-          <h2 className="font-semibold text-xl text-center">
-          SignUp Page
-          </h2>
+          <h2 className="font-semibold text-xl text-center">SignUp Page</h2>
           <form onSubmit={handleSignUp} className="card-body">
             <fieldset className="fieldset">
               <label className="label">Name</label>
@@ -120,13 +150,16 @@ const SignUp = () => {
                   className="input"
                   placeholder="Address"
                 />
-           
               </div>
               <button type="submit" className="btn btn-primary mt-4">
-              SignUp
+                SignUp
               </button>
               <p className="mt-2 text-center">
-                {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+                {error && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    {error}
+                  </p>
+                )}
                 Already Have An Account ?{" "}
                 <Link className="text-secondary" to="/SignIn">
                   SignIn

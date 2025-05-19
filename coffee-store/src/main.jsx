@@ -11,32 +11,39 @@ import MainLayout from "./layouts/MainLayout";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import AuthProvider from "./contexts/AuthProvider";
+import Users from "./components/Users";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
       {
-       index: true, 
-       Component: Home,
-       loader: () => fetch('http://localhost:5000/coffees')
-      },      
-      {
-          path: 'add-coffee',
-          Component: AddCoffee
-      },      
-      {
-          path: 'update-coffee/:id',
-          Component: UpdateCoffee,
-          loader: ({params})=> fetch(`http://localhost:5000/coffees/${params.id}`)
+        index: true,
+        Component: Home,
+        loader: () => fetch("http://localhost:5000/coffees"),
       },
       {
-        path: 'signin',
-        Component: SignIn
+        path: "add-coffee",
+        Component: AddCoffee,
       },
       {
-        path: 'signup',
-        Component: SignUp
+        path: "update-coffee/:id",
+        Component: UpdateCoffee,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/coffees/${params.id}`),
+      },
+      {
+        path: "signin",
+        Component: SignIn,
+      },
+      {
+        path: "signup",
+        Component: SignUp,
+      },
+      {
+        path: "users",
+        Component: Users,
+        loader: () => fetch("http://localhost:5000/users"),
       },
     ],
   },
@@ -47,7 +54,7 @@ const root = document.getElementById("root");
 ReactDOM.createRoot(root).render(
   <StrictMode>
     <AuthProvider>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>
 );
