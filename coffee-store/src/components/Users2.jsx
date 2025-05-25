@@ -1,26 +1,32 @@
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 
-const Users = () => {
-  const initialUsers = useLoaderData();
-  const [users, setUsers] = useState(initialUsers);
+const Users2 = () => {
+  const {isPending, isError, error, data: users} = useQuery({
+    queryKey: ['users'],
+    queryFn: async() => {
+        const res = await fetch('https://node-server-six-mocha.vercel.app/users')
+        return res.json();
+    }
+    
+  })
 
-  // useEffect(() => {
-  //   fetch('/')
+  if(isPending) {
+    return <span className="loading loading-spinner text-primary"></span>
+  }
+
+  if(isError){
+    return <p>{error}</p>
+  }
+  //const [users, setUsers] = useState([]);
+  // useEffect( () =>
+  //   {
+  //     fetch('https://node-server-six-mocha.vercel.app/users')
   //     .then(res => res.json())
-  //       .then(data => {
-  //         console.log(data);
-  //       })
-  // },[])
-
-  // useEffect(() => {
-  //   axios.get('/')
-  //       .then(data => { 
-  //         console.log(data.data);
-  // })
-  // },[])
+  //     .then(data =>  setUsers(data) )
+  //   }
+  // ,[])
 
   const handleDelete = (id) =>{
     Swal.fire({
@@ -68,7 +74,6 @@ const Users = () => {
                No
               </th>
               <th>Name</th>
-              <th>Time</th>
               <th>Email</th>
               <th></th>
             </tr>
@@ -95,8 +100,7 @@ const Users = () => {
                       <div className="text-sm opacity-50">{user.address}</div>
                     </div>
                   </div>
-                </td>               
-                <td>{user.lastSignInTime}</td> 
+                </td>                
                 <td>{user.email}</td>
                 <th>
                   <button className="btn btn-xs">V</button>
@@ -112,4 +116,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Users2;

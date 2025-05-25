@@ -12,7 +12,7 @@ const Users = () => {
         const email = e.target.email.value;
         const user = {name,email}
         
-        fetch('http://localhost:5000/users', {
+        fetch('https://node-server-six-mocha.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type':'Application/json'
@@ -28,7 +28,7 @@ const Users = () => {
     }
 
     const handleUserDelete = (id) => {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://node-server-six-mocha.vercel.app/users/${id}`, {
             method: 'DELETE',
         })
             .then(res =>res.json())

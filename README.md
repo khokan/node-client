@@ -1,12 +1,22 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+project name: node-client
 
-Currently, two official plugins are available:
+# coffee features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. add coffee
+2. update coffee
+3. delete coffee
+4. get coffee by id
+5. get all coffees
 
-## Expanding the ESLint configuration
+# user features:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. add user
+2. update user
+3. delete user
+4. get user by id
+5. get all users
+
+
+

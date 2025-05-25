@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
+import axios from "axios";
 
 const SignIn = () => {
   const { signInUser, signInGoogle } = use(AuthContext);
@@ -26,15 +27,19 @@ const SignIn = () => {
             email: email,
             lastSignInTime: result.user?.metadata?.lastSignInTime
         }
+        
+        axios.patch('https://node-server-six-mocha.vercel.app/users', signInInfo)
+        .then(data => console.log(data.data))
 
-        fetch('http://localhost:5000/users',{
-          method: 'PATCH',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(signInInfo)
-        }).then(res => res.json())
-        .then(data => console.log('after signIn update', data))
+        // fetch('https://node-server-six-mocha.vercel.app/users',{
+        //   method: 'PATCH',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(signInInfo)
+        // }).then(res => res.json())
+        // .then(data => console.log('after signIn update', data))
+
         navigate(location?.state || "/");
       })
       .catch((error) => {
