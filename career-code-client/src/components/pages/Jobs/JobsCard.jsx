@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const JobsCard = ({job}) => {
     const {location, jobType,description,requirements,company_logo, _id} = job
@@ -20,7 +21,7 @@ const JobsCard = ({job}) => {
           
           </div>
           <div className="card-actions justify-end">
-         <Link to={`/jobs/${_id}`} className='btn btn-primary'>Apply Now</Link>
+         <Link to={`/jobs/${_id}`} className='btn btn-primary'>Show Details</Link>
           
           </div>
         </div>

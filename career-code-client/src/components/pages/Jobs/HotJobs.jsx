@@ -1,9 +1,8 @@
 import React from 'react';
-import JobsCard from '../Shared/JobsCard';
+import JobsCard from './JobsCard';
 
 
 const HotJobs = ({jobs}) => {
-    console.log(jobs)
     return (
         <>        
         <h2>{jobs.length}</h2>

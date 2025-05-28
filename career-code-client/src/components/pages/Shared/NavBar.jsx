@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
 
 
 const NavBar = () => {
-
+const {user} = useAuth();
+console.log(user)
 const links = 
     <>
        <NavLink to='/'>Home</NavLink>
@@ -30,7 +32,12 @@ const links =
     </ul>
   </div>
   <div className="navbar-end">
-    <NavLink to='/register' className="btn">Register</NavLink>
+  { user && 
+        <p>{user.email} </p>         
+      }
+    {user ? 
+    <NavLink to='/signin' className="btn">SignOut</NavLink> : <NavLink to='/signin' className="btn">SignOut</NavLink> }
+ 
   </div>
 </div>
     );

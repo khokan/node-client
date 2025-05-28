@@ -3,6 +3,8 @@ import MainLayout from "../layouts/MainLayout";
 import SignIn from "../components/pages/SignIn";
 import SignUp from "../components/pages/SignUp";
 import Home from "../components/pages/Home/Home";
+import JobDetails from "../components/pages/Jobs/JobDetails";
+import ApplyJobs from "../components/pages/Jobs/ApplyJobs";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +21,17 @@ const router = createBrowserRouter([
           {
             path: "signup",
             Component: SignUp,
+          },
+
+          {
+            path: "/jobs/:id",
+            Component: JobDetails,
+            loader: ({params}) => fetch(`https://node-server-six-mocha.vercel.app/jobs/${params.id}`)
+          },
+          {
+            path: "/jobApply/:id",
+            Component: ApplyJobs,
+            loader: ({params}) => fetch(`https://node-server-six-mocha.vercel.app/jobs/${params.id}`)
           },
       ],
     },
