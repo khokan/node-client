@@ -8,7 +8,7 @@ const UpdateUser = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const updateUser = { name, email };
-    fetch(`http://localhost:5000/users/${userData._id}`, {
+    fetch(`https://node-server-six-mocha.vercel.app/users/${userData._id}`, {
       method: "PUT",
       headers: {
         "content-type": "Application/json",

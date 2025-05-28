@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
           }).then((result) => {
             if (result.isConfirmed) {
                    
-            fetch(`http://localhost:5000/coffees/${_id}`, {
+            fetch(`https://node-server-six-mocha.vercel.app/coffees/${_id}`, {
                 method: 'DELETE',
                 })
                 .then(res =>res.json())

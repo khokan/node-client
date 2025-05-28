@@ -44,12 +44,16 @@ const SignUp = () => {
           email,
           ...restData,
           creationTime: result.user?.metadata.creationTime,
+          lastSignInTime: result.user?.metadata.lastSignInTime,
         };
 
         axios.post("http://localhost:5000/users", userProfile).then((data) => {
           console.log(data.data);
         });
 
+        axios
+          .post("https://node-server-six-mocha.vercel.app/users", userProfile)
+          .then((data) => console.log(data.data));
         // save profile into database
         // fetch("http://localhost:5000/users", {
         //   method: "POST",

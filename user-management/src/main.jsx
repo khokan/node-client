@@ -19,13 +19,13 @@ const router = createBrowserRouter([
       {
         path: "blogs",
         Component: Blogs,
-        loader: () => fetch("http://localhost:5000/blogs"),
+        loader: () => fetch("https://node-server-six-mocha.vercel.app/blogs"),
       },
       {
         path: "blog/:id",
         Component: Blog,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/blog/${params.id}`),
+          fetch(`https://node-server-six-mocha.vercel.app/blog/${params.id}`),
       },
       {
         path: "customers",
@@ -34,17 +34,17 @@ const router = createBrowserRouter([
       {
         path: "users",
         Component: Users,
-        loader: () => fetch("http://localhost:5000/users"),
+        loader: () => fetch("https://node-server-six-mocha.vercel.app/users"),
       },
       {
         path: 'users/:id',
         Component: UserDetails,
-        loader: ({params})=> fetch(`http://localhost:5000/users/${params.id}`)
+        loader: ({params})=> fetch(`https://node-server-six-mocha.vercel.app/users/${params.id}`)
       },
       {
         path: 'update/:id',
         Component: UpdateUser,
-        loader: ({params})=> fetch(`http://localhost:5000/users/${params.id}`)
+        loader: ({params})=> fetch(`https://node-server-six-mocha.vercel.app/users/${params.id}`)
       }
     ],
   },

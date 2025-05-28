@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 
 const Users = () => {
   const initialUsers = useLoaderData();
   const [users, setUsers] = useState(initialUsers);
+
+  // useEffect(() => {
+  //   fetch('/')
+  //     .then(res => res.json())
+  //       .then(data => {
+  //         console.log(data);
+  //       })
+  // },[])
+
+  // useEffect(() => {
+  //   axios.get('/')
+  //       .then(data => { 
+  //         console.log(data.data);
+  // })
+  // },[])
+
   const handleDelete = (id) =>{
     Swal.fire({
       title: "Are you sure?",
@@ -17,7 +34,7 @@ const Users = () => {
     }).then((result) => {
       if (result.isConfirmed) {
              
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://node-server-six-mocha.vercel.app/users/${id}`, {
           method: 'DELETE',
           })
           .then(res =>res.json())
@@ -51,6 +68,7 @@ const Users = () => {
                No
               </th>
               <th>Name</th>
+              <th>Time</th>
               <th>Email</th>
               <th></th>
             </tr>
@@ -77,7 +95,8 @@ const Users = () => {
                       <div className="text-sm opacity-50">{user.address}</div>
                     </div>
                   </div>
-                </td>                
+                </td>               
+                <td>{user.lastSignInTime}</td> 
                 <td>{user.email}</td>
                 <th>
                   <button className="btn btn-xs">V</button>

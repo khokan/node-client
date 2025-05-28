@@ -5,7 +5,7 @@ const Customers = () => {
     const [data,setData] = useState([])
 
     useEffect(() => {
-        const fetchPromise = fetch('http://localhost:5000/customers')
+        const fetchPromise = fetch('https://node-server-six-mocha.vercel.app/customers')
                     .then(res => res.json()
                      .then(data => setData(data)))
     },[])
@@ -16,7 +16,7 @@ const Customers = () => {
         const email = e.target.email.value;
         const customer = {name,email}
         
-        fetch('http://localhost:5000/customers', {
+        fetch('https://node-server-six-mocha.vercel.app/customers', {
             method: 'POST',
             headers: {
                 'content-type':'Application/json'
