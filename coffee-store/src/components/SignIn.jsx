@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
+import axios from "axios";
 
 const SignIn = () => {
   const { signInUser, signInGoogle } = use(AuthContext);
@@ -23,18 +24,23 @@ const SignIn = () => {
         setResult(true);
 
         const signInInfo = {
-            email: email,
-            lastSignInTime: result.user?.metadata?.lastSignInTime
-        }
+          email: email,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
 
-        fetch('http://localhost:5000/users',{
-          method: 'PATCH',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(signInInfo)
-        }).then(res => res.json())
-        .then(data => console.log('after signIn update', data))
+        axios
+          .patch("http://localhost:5000/users", signInInfo)
+          .then((data) => console.log(data.data));
+
+        // fetch('http://localhost:5000/users',{
+        //   method: 'PATCH',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(signInInfo)
+        // }).then(res => res.json())
+        // .then(data => console.log('after signIn update', data))
+
         navigate(location?.state || "/");
       })
       .catch((error) => {
@@ -61,15 +67,14 @@ const SignIn = () => {
     navigate("/forgot-password", { state: { email } });
   };
 
-
-useEffect(() => {
-  if (error) {
-    toast.error(error);
-  }
-  if (result) {
-    toast.success("Logged In Successfully");
-  }
-}, [error, result]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (result) {
+      toast.success("Logged In Successfully");
+    }
+  }, [error, result]);
 
   return (
     <>
@@ -109,11 +114,14 @@ useEffect(() => {
               <p className="mt-2 text-center">
                 Don’t Have An Account ?{" "}
                 <Link className="text-secondary" to="/SignUp">
-                Sign Up
+                  Sign Up
                 </Link>
-                {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+                {error && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    {error}
+                  </p>
+                )}
               </p>
-           
             </fieldset>
           </form>
         </div>
