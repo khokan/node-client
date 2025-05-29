@@ -5,6 +5,7 @@ import SignUp from "../components/pages/SignUp";
 import Home from "../components/pages/Home/Home";
 import JobDetails from "../components/pages/Jobs/JobDetails";
 import ApplyJobs from "../components/pages/Jobs/ApplyJobs";
+import MyApplications from "../components/pages/Jobs/MyApplications";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             path: "/jobApply/:id",
             Component: ApplyJobs,
             loader: ({params}) => fetch(`https://node-server-six-mocha.vercel.app/jobs/${params.id}`)
+          },
+          {
+            path: "/myApplications",
+            Component: MyApplications,
           },
       ],
     },

@@ -29,19 +29,6 @@ const SignIn = () => {
             email: email,
             lastSignInTime: result.user?.metadata?.lastSignInTime
         }
-        
-        axios.patch('https://node-server-six-mocha.vercel.app/users', signInInfo)
-        .then(data => console.log(data.data))
-
-        // fetch('https://node-server-six-mocha.vercel.app/users',{
-        //   method: 'PATCH',
-        //   headers: {
-        //     'content-type': 'application/json'
-        //   },
-        //   body: JSON.stringify(signInInfo)
-        // }).then(res => res.json())
-        // .then(data => console.log('after signIn update', data))
-
         navigate(location?.state || "/");
       })
       .catch((error) => {
