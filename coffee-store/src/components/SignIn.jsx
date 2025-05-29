@@ -24,14 +24,15 @@ const SignIn = () => {
         setResult(true);
 
         const signInInfo = {
-            email: email,
-            lastSignInTime: result.user?.metadata?.lastSignInTime
-        }
-        
-        axios.patch('https://node-server-six-mocha.vercel.app/users', signInInfo)
-        .then(data => console.log(data.data))
+          email: email,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
 
-        // fetch('https://node-server-six-mocha.vercel.app/users',{
+        axios
+          .patch("http://localhost:5000/users", signInInfo)
+          .then((data) => console.log(data.data));
+
+        // fetch('http://localhost:5000/users',{
         //   method: 'PATCH',
         //   headers: {
         //     'content-type': 'application/json'
@@ -66,15 +67,14 @@ const SignIn = () => {
     navigate("/forgot-password", { state: { email } });
   };
 
-
-useEffect(() => {
-  if (error) {
-    toast.error(error);
-  }
-  if (result) {
-    toast.success("Logged In Successfully");
-  }
-}, [error, result]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (result) {
+      toast.success("Logged In Successfully");
+    }
+  }, [error, result]);
 
   return (
     <>
@@ -114,11 +114,14 @@ useEffect(() => {
               <p className="mt-2 text-center">
                 Don’t Have An Account ?{" "}
                 <Link className="text-secondary" to="/SignUp">
-                Sign Up
+                  Sign Up
                 </Link>
-                {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+                {error && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    {error}
+                  </p>
+                )}
               </p>
-           
             </fieldset>
           </form>
         </div>

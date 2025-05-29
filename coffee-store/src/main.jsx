@@ -19,11 +19,11 @@ import {
   useQueryClient,
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query'
+} from "@tanstack/react-query";
 import Users2 from "./components/Users2";
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -43,7 +43,9 @@ const router = createBrowserRouter([
         path: "update-coffee/:id",
         Component: UpdateCoffee,
         loader: ({ params }) =>
-          fetch(`https://node-server-six-mocha.vercel.app/coffees/${params.id}`),
+          fetch(
+            `https://node-server-six-mocha.vercel.app/coffees/${params.id}`
+          ),
       },
       {
         path: "signin",
@@ -67,13 +69,12 @@ const router = createBrowserRouter([
 ]);
 
 const root = document.getElementById("root");
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>   
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </QueryClientProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

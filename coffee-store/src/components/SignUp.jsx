@@ -44,11 +44,16 @@ const SignUp = () => {
           email,
           ...restData,
           creationTime: result.user?.metadata.creationTime,
-          lastSignInTime: result.user?.metadata?.lastSignInTime
+          lastSignInTime: result.user?.metadata.lastSignInTime,
         };
 
-        axios.post('https://node-server-six-mocha.vercel.app/users', userProfile)
-          .then(data => console.log(data.data))
+        axios.post("http://localhost:5000/users", userProfile).then((data) => {
+          console.log(data.data);
+        });
+
+        axios
+          .post("https://node-server-six-mocha.vercel.app/users", userProfile)
+          .then((data) => console.log(data.data));
         // save profile into database
         // fetch("http://localhost:5000/users", {
         //   method: "POST",
@@ -112,14 +117,14 @@ const SignUp = () => {
                 placeholder="Name"
                 required
               />
-              <label className="label">Photo URL</label>
+              {/* <label className="label">Photo URL</label>
               <input
                 type="text"
                 name="photo"
                 className="input"
                 placeholder="Photo url"
                 required
-              />
+              /> */}
               <label className="label">Email</label>
               <input
                 type="email"
@@ -145,7 +150,7 @@ const SignUp = () => {
                   {visible ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
-              <label className="label">Address</label>
+              {/* <label className="label">Address</label>
               <div>
                 <input
                   type="text"
@@ -153,7 +158,7 @@ const SignUp = () => {
                   className="input"
                   placeholder="Address"
                 />
-              </div>
+              </div> */}
               <button type="submit" className="btn btn-primary mt-4">
                 SignUp
               </button>
