@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
 import axios from "axios";
+import axios from "axios";
 
 const SignUp = () => {
   const { createUser, signInGoogle } = use(AuthContext);
@@ -44,18 +45,33 @@ const SignUp = () => {
           email,
           ...restData,
           creationTime: result.user?.metadata.creationTime,
-          lastSignInTime: result.user?.metadata.lastSignInTime,
         };
 
         axios.post("http://localhost:5000/users", userProfile).then((data) => {
           console.log(data.data);
         });
 
-        axios
-          .post("https://node-server-six-mocha.vercel.app/users", userProfile)
-          .then((data) => console.log(data.data));
         // save profile into database
         // fetch("http://localhost:5000/users", {
+        //   method: "POST",
+        //   headers: {
+        //     "content-type": "Application/json",
+        //   },
+        //   body: JSON.stringify(userProfile),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     if (data.insertedId)
+        //       console.log("after creating profile in the database", data);
+        //     Swal.fire({
+        //       position: "top-end",
+        //       icon: "success",
+        //       title: "data been saved",
+        //       showConfirmButton: false,
+        //       timer: 1500,
+        //     });
+        //   });
+        // ${import.meta.env.VITE_NODE_SERVER_URL}http://localhost:5000/users", {
         //   method: "POST",
         //   headers: {
         //     "content-type": "Application/json",

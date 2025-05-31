@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 import Lottie from "lottie-react";
-import signupLottie from "../../assets/signupLottie.json"
+import signupLottie from "../../assets/signupLottie.json";
 
 const SignUp = () => {
   const { createUser, signInGoogle } = use(AuthContext);
@@ -46,11 +46,12 @@ const SignUp = () => {
           email,
           ...restData,
           creationTime: result.user?.metadata.creationTime,
-          lastSignInTime: result.user?.metadata?.lastSignInTime
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
         };
 
-        axios.post('https://node-server-six-mocha.vercel.app/users', userProfile)
-          .then(data => console.log(data.data))
+        axios
+          .post(`${import.meta.env.VITE_NODE_SERVER_URL}/users`, userProfile)
+          .then((data) => console.log(data.data));
         // save profile into database
         // fetch("http://localhost:5000/users", {
         //   method: "POST",
@@ -102,9 +103,9 @@ const SignUp = () => {
   return (
     <>
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center">
-      <div className="w-[300px] md:w-[450px]">
-        <Lottie animationData={signupLottie} loop={true} />
-      </div>
+        <div className="w-[300px] md:w-[450px]">
+          <Lottie animationData={signupLottie} loop={true} />
+        </div>
         <div className="card w-full max-w-sm shrink-0 shadow-2xl py-3">
           <h2 className="font-semibold text-xl text-center">SignUp Page</h2>
           <form onSubmit={handleSignUp} className="card-body">
@@ -116,7 +117,7 @@ const SignUp = () => {
                 className="input"
                 placeholder="Name"
                 required
-              />            
+              />
               <label className="label">Email</label>
               <input
                 type="email"
@@ -141,7 +142,7 @@ const SignUp = () => {
                 >
                   {visible ? <FaEyeSlash /> : <FaEye />}
                 </button>
-              </div>              
+              </div>
               <button type="submit" className="btn btn-primary mt-4">
                 SignUp
               </button>

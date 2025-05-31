@@ -12,19 +12,6 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import AuthProvider from "./contexts/AuthProvider";
 import Users from "./components/Users";
-
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import Users2 from "./components/Users2";
-
-// Create a client
-const queryClient = new QueryClient();
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,7 +20,7 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: () => fetch("https://node-server-six-mocha.vercel.app/coffees"),
+        loader: () => fetch(`http://localhost:5000/coffees`),
       },
       {
         path: "add-coffee",
@@ -43,9 +30,7 @@ const router = createBrowserRouter([
         path: "update-coffee/:id",
         Component: UpdateCoffee,
         loader: ({ params }) =>
-          fetch(
-            `https://node-server-six-mocha.vercel.app/coffees/${params.id}`
-          ),
+          fetch(`http://localhost:5000/coffees/${params.id}`),
       },
       {
         path: "signin",
@@ -58,11 +43,7 @@ const router = createBrowserRouter([
       {
         path: "users",
         Component: Users,
-        loader: () => fetch("https://node-server-six-mocha.vercel.app/users"),
-      },
-      {
-        path: "users2",
-        Component: Users2,
+        loader: () => fetch(`http://localhost:5000/users`),
       },
     ],
   },
@@ -73,8 +54,10 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

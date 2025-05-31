@@ -17,12 +17,12 @@ const Users = () => {
 
   // useEffect(() => {
   //   axios.get('/')
-  //       .then(data => { 
+  //       .then(data => {
   //         console.log(data.data);
   // })
   // },[])
 
-  const handleDelete = (id) =>{
+  const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -30,33 +30,32 @@ const Users = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-             
-      fetch(`https://node-server-six-mocha.vercel.app/users/${id}`, {
-          method: 'DELETE',
-          })
-          .then(res =>res.json())
-          .then(data => {                    
-              if(data.deletedCount > 0){
-                  const remianing = users.filter(user => user._id != id)
-                  setUsers(remianing)
-                  // TODO: Delete user from firebase
-                  console.log('after deleted',data)
-              }
-          })
+        fetch(`${import.meta.env.VITE_NODE_SERVER_URL}/users/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              const remianing = users.filter((user) => user._id != id);
+              setUsers(remianing);
+              // TODO: Delete user from firebase
+              console.log("after deleted", data);
+            }
+          });
 
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
-          icon: "success"
+          icon: "success",
         });
       }
     });
-  }
+  };
 
-  return (    
+  return (
     <div>
       <h2>USers</h2>
       <div className="overflow-x-auto">
@@ -64,9 +63,7 @@ const Users = () => {
           {/* head */}
           <thead>
             <tr>
-              <th>
-               No
-              </th>
+              <th>No</th>
               <th>Name</th>
               <th>Time</th>
               <th>Email</th>
@@ -75,11 +72,9 @@ const Users = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {users.map((user,index) => (
+            {users.map((user, index) => (
               <tr key={user._id}>
-                <th>
-                  {index + 1}
-                </th>
+                <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -95,13 +90,18 @@ const Users = () => {
                       <div className="text-sm opacity-50">{user.address}</div>
                     </div>
                   </div>
-                </td>               
-                <td>{user.lastSignInTime}</td> 
+                </td>
+                <td>{user.lastSignInTime}</td>
                 <td>{user.email}</td>
                 <th>
                   <button className="btn btn-xs">V</button>
                   <button className="btn btn-xs">E</button>
-                  <button onClick={() => handleDelete(user._id)} className="btn btn-xs">X</button>
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="btn btn-xs"
+                  >
+                    X
+                  </button>
                 </th>
               </tr>
             ))}

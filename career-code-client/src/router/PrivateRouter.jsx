@@ -10,7 +10,7 @@ const PrivateRouter = ({ children }) => {
     return <span className="loading loading-spinner loading-xl"></span>;
 
   if (!user)
-    return <Navigate state={location.pathname} to="/auth/login"></Navigate>;
+    return <Navigate state={location.pathname} to="/signin"></Navigate>;
 
   return children;
 };
