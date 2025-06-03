@@ -11,3 +11,68 @@ What is JWT, and why is it used?
 What are the three parts of a JWT? Explain their purpose.
 How does JWT differ from session-based authentication?
 How can you include a JWT in the headers of an Axios request?
+
+-----------------------------------------------------search in chat gpt--------------
+
+# where and who to handle jwt token. i am using client side react axios, firebase auth for social and email/password auth on the serverside express mongodb jsonwebtoken. what is the best approach
+
+# how should i call from the client side to get jwt token that will be saved on cookies.
+
+i am using axio js
+
+# for normal fetch what is similar to withcredentials in axios js
+
+---
+
+- Simple but not the best way
+- 1. from client side sent information
+- 2. generate token jwt.sign()
+- 3. on the client side set token to the local storage
+
+/\* using http only cookies
+
+1. from client side send the information (email, bettter: firebase auth token) to generate token
+2. on the server side, accept user information and if needed validate it
+3. generate token from server side
+
+---
+
+set the token to the cookies 4. while calling the api tell to use with credentials (client)
+axios.post('http://localhost:3000/jwt, userData, {
+withCredentils:true
+})
+or for fetch add option credentials: 'include'
+
+5. in the cors setting set credentials and origin (server)
+   app.use(cors({ origin: ['http://localhost:5173'] }));
+
+6. after generating the tokens set it to the cookies with some options
+
+---
+
+7. one time: use cookie parser as middleware
+8. for every time you want to verify token: in the client side: if using axios withCredentials: true
+   for fetch: crendials included
+
+---
+
+9. verify token. check token exists. if not return 401
+   jwt.verify function
+10. if token is valid set the decoded value to the req object
+
+---
+
+/**\*** 3 approach to jwt
+
+1. generate jwt > send to the client > store in the local storage > Send the token to the server using header > on the server verify token
+   Best approach:
+2. generate token > set token to the cookies > ensure client and server exchange cookies
+   > on the server verify token
+3. firebase authentication approach:
+4. already have the token the firebase (client side) > we will send the token to the server using auth header > verify the token
+
+cmd: > node
+
+> require('crypto').randomBytes(64)
+> require('crypto').randomBytes(64).toString()
+> require('crypto').randomBytes(64).toString('hex')

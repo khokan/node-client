@@ -122,7 +122,7 @@ const AddJob = () => {
         {/* Application deadline */}
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
           <legend className="fieldset-legend">Application deadline</legend>
-          <input type="date" name="deadline" className="input" />
+          <input type="date" name="applicationDeadline" className="input" />
         </fieldset>
         {/*Salary Range */}
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">

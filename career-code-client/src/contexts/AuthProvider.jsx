@@ -11,7 +11,7 @@ import {
 
 import toast from "react-hot-toast";
 import { auth } from "../firebase/firebase.config";
-
+import axios from "axios";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -45,11 +45,18 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {     
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      if (currentUser?.email) {
+        const userData = { email: currentUser?.email };
+        axios
+          .post(`${import.meta.env.VITE_NODE_SERVER_URL}/jwt`, userData)
+          .then((res) => console.log("token after jwt", res.data))
+          .catch((err) => console.log(err));
+      }
+      console.log("user in the auth state change", currentUser);
     });
     return () => {
       unSubscribe();

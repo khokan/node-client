@@ -22,9 +22,14 @@ const NavBar = () => {
       )}
       {/* for employeer */}
       {user && (
-        <li>
-          <NavLink to="/addjob">Add Job</NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink to="/addJob">Add Job</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myPostedJobs">My Posted Jobs</NavLink>
+          </li>
+        </>
       )}
     </>
   );
