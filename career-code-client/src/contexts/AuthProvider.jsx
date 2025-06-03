@@ -52,8 +52,17 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         const userData = { email: currentUser?.email };
         axios
-          .post(`${import.meta.env.VITE_NODE_SERVER_URL}/jwt`, userData)
-          .then((res) => console.log("token after jwt", res.data))
+          .post(`${import.meta.env.VITE_NODE_SERVER_URL}/jwt`, userData, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("token after jwt", res.data);
+            /****** if local storage is used in client side ***/
+            // const token = res.data.token;
+            // console.log(token);
+            // localStorage.setItem("token", token);
+            /****** if local storage is used in client side ***/
+          })
           .catch((err) => console.log(err));
       }
       console.log("user in the auth state change", currentUser);

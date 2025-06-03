@@ -18,7 +18,7 @@ How can you include a JWT in the headers of an Axios request?
 
 # how should i call from the client side to get jwt token that will be saved on cookies.
 
-i am using axio js
+# i am using axio js
 
 # for normal fetch what is similar to withcredentials in axios js
 
