@@ -8,9 +8,10 @@ const MyApplications = () => {
   const { user } = useAuth();
   const [applications, setApplications] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (user?.email) {
-      myApplicationPromise(user.email).then((data) => {
+      myApplicationPromise(user.email, user.accessToken).then((data) => {
         setApplications(data);
         setLoading(false);
       });
