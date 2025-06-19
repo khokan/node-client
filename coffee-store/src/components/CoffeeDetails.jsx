@@ -6,7 +6,7 @@ const CoffeeDetails = () => {
   const { user } = use(AuthContext);
   const { name, likedBy } = Coffee;
   const data = useLoaderData();
-  const [likes, setLikes] = useState(likedBy.includes(user?.email));
+  const [likes, setLikes] = useState(likedBy.includes(user));
 
   return <div></div>;
 };

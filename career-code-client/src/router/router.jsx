@@ -8,6 +8,8 @@ import ApplyJobs from "../components/pages/Jobs/ApplyJobs";
 import MyApplications from "../components/pages/Jobs/MyApplications";
 import AddJob from "../components/pages/Jobs/AddJob";
 import PrivateRouter from "./PrivateRouter";
+import MyPostedJobs from "../components/pages/MyPostedJobs/MyPostedJobs";
+import ViewApplications from "../components/pages/MyPostedJobs/ViewApplications";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +29,34 @@ const router = createBrowserRouter([
         Component: SignUp,
       },
       {
-        path: "addjob",
+        path: "addJob",
         element: (
           <PrivateRouter>
             <AddJob />
           </PrivateRouter>
         ),
+      },
+      {
+        path: "myPostedJobs",
+        element: (
+          <PrivateRouter>
+            <MyPostedJobs />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/applications/:job_id",
+        element: (
+          <PrivateRouter>
+            <ViewApplications></ViewApplications>
+          </PrivateRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `${import.meta.env.VITE_NODE_SERVER_URL}/applications/jobs/${
+              params.job_id
+            }`
+          ),
       },
       {
         path: "/jobs/:id",
