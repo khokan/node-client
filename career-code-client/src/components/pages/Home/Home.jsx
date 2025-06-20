@@ -11,6 +11,7 @@ const jobsPromise = fetch(`${import.meta.env.VITE_NODE_SERVER_URL}/jobs`)
   });
 const Home = () => {
   const jobs = use(jobsPromise);
+  console.log(jobs);
   return (
     <div>
       <Banner />

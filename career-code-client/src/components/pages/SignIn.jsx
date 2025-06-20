@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
-import signinLottie from "../../assets/signInLottie.json"
+import signinLottie from "../../assets/signInLottie.json";
 import Lottie from "lottie-react";
 
 const SignIn = () => {
@@ -26,9 +26,9 @@ const SignIn = () => {
         setResult(true);
 
         const signInInfo = {
-            email: email,
-            lastSignInTime: result.user?.metadata?.lastSignInTime
-        }
+          email: email,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
         navigate(location?.state || "/");
       })
       .catch((error) => {
@@ -55,22 +55,21 @@ const SignIn = () => {
     navigate("/forgot-password", { state: { email } });
   };
 
-
-useEffect(() => {
-  if (error) {
-    toast.error(error);
-  }
-  if (result) {
-    toast.success("Logged In Successfully");
-  }
-}, [error, result]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (result) {
+      toast.success("Logged In Successfully");
+    }
+  }, [error, result]);
 
   return (
     <>
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center mt-2 ">
-      <div className="w-[300px] md:w-[450px]">
-        <Lottie animationData={signinLottie} loop={true} />
-      </div>
+        <div className="w-[300px] md:w-[450px]">
+          <Lottie animationData={signinLottie} loop={true} />
+        </div>
         <div className="card w-full max-w-sm shrink-0 shadow-2xl py-5">
           <h2 className="font-semibold text-xl text-center">SignIn Page</h2>
           <form onSubmit={handleSignIn} className="card-body">
@@ -106,11 +105,14 @@ useEffect(() => {
               <p className="mt-2 text-center">
                 Don’t Have An Account ?{" "}
                 <Link className="text-secondary" to="/SignUp">
-                Sign Up
+                  Sign Up
                 </Link>
-                {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+                {error && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    {error}
+                  </p>
+                )}
               </p>
-           
             </fieldset>
           </form>
         </div>
