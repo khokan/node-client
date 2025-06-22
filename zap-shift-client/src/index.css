@@ -2,6 +2,26 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #3b82f6; /* Blue-500: Professional, trustworthy */
+  --color-secondary: #f97316; /* Orange-500: Energetic, engaging */
+  --color-accent: #1e293b; /* Slate-500: Neutral, soft contrast */
+  --color-base-200: #f8fafc; /* Slate-50: Very light background */
+  --color-base-300: #e2e8f0; /* Slate-200: Light, subtle borders */
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: false;
+  --color-primary: #60a5fa; /* Blue-400: Brighter for dark mode */
+  --color-secondary: #fb923c; /* Orange-400: Softer for dark mode */
+  --color-accent: #94a3b8; /* Slate-400: Lighter contrast */
+  --color-base-200: #1e293b; /* Slate-800: Dark background */
+  --color-base-300: #334155; /* Slate-700: Darker borders */
+}
+
 .urbanist-font > {
   font-family: "Urbanist", sans-serif;
   font-optical-sizing: auto;

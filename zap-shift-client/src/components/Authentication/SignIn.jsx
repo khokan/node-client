@@ -6,6 +6,7 @@ import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 import signinLottie from "../../assets/signInLottie.json";
 import Lottie from "lottie-react";
+import authImage from "../../assets/authImage.png";
 
 const SignIn = () => {
   const { signInUser, signInGoogle } = use(AuthContext);
@@ -66,9 +67,9 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row-reverse justify-center items-center mt-2 ">
+      <div className="flex flex-col lg:flex-row-reverse justify-center items-center mt-2 mx-auto ">
         <div className="w-[300px] md:w-[450px]">
-          <Lottie animationData={signinLottie} loop={true} />
+          <img src={authImage} alt="" />
         </div>
         <div className="card w-full max-w-sm shrink-0 shadow-2xl py-5">
           <h2 className="font-semibold text-xl text-center">SignIn Page</h2>

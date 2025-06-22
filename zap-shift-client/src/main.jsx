@@ -8,6 +8,10 @@ import router from "./router/router";
 import { Toaster } from "react-hot-toast";
 
 const root = document.getElementById("root");
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
