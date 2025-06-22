@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import SignIn from "../components/Authentication/SignIn";
 import SignUp from "../components/Authentication/SignUp";
 import Home from "../components/Home/Home";
+import Coverage from "../components/Services/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         Component: SignUp,
+      },
+      {
+        path: "coverage",
+        Component: Coverage,
       },
     ],
   },

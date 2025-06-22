@@ -1,8 +1,6 @@
 import React from 'react';
 import sampleImage from '../../assets/location-merchant.png'; 
-import BackImage2 from '../../assets/location-merchant.png'; 
 
-// 📌 Replace with your actual image path
 
 const MerchantPriority = () => {
   return (

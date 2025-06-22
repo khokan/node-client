@@ -2,19 +2,29 @@ import React, { use, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
-import Swal from "sweetalert2";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 import Lottie from "lottie-react";
 import signupLottie from "../../assets/signupLottie.json";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+
 
 const SignUp = () => {
-  const { createUser, signInGoogle } = use(AuthContext);
-  const [error, setError] = useState("");
-  const [result, setResult] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+    const {register, handleSubmit, formState: {errors}} = useForm();
+    const { createUser, signInGoogle } = use(AuthContext);
+
+    const onSubmit = (data) => {
+      console.log(data);
+      console.log(createUser)
+      createUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+    }
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -27,78 +37,20 @@ const SignUp = () => {
     // const email = formData.get('email')
     // const password = formData.get('password')
 
-    setError("");
-    setResult(false);
 
-    const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (passwordRegEx.test(password) === false) {
-      setError(
-        "Must have atleast 6 characters, one lowercase letter and one uppercase letter"
-      );
-      return;
-    }
-
-    createUser(email, password)
-      .then((result) => {
-        console.log(result.user);
-
-        const userProfile = {
-          email,
-          ...restData,
-          creationTime: result.user?.metadata.creationTime,
-          lastSignInTime: result.user?.metadata?.lastSignInTime,
-        };
-
-        axios
-          .post(`${import.meta.env.VITE_NODE_SERVER_URL}/users`, userProfile)
-          .then((data) => console.log(data.data));
-        // save profile into database
-        // fetch("http://localhost:5000/users", {
-        //   method: "POST",
-        //   headers: {
-        //     "content-type": "Application/json",
-        //   },
-        //   body: JSON.stringify(userProfile),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data.insertedId)
-        //       console.log("after creating profile in the database", data);
-        //     Swal.fire({
-        //       position: "top-end",
-        //       icon: "success",
-        //       title: "data been saved",
-        //       showConfirmButton: false,
-        //       timer: 1500,
-        //     });
-        //   });
-
-        setResult(true);
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    
   };
 
   const handleSignInGoogle = () => {
     signInGoogle()
       .then((result) => {
-        setResult(true);
         navigate(location?.state || "/");
       })
       .catch((error) => {
-        setError(error.message);
+        
       });
   };
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-    if (result) {
-      toast.success("Successfully Registerd");
-    }
-  }, [error, result]);
+
 
   return (
     <>
@@ -108,7 +60,7 @@ const SignUp = () => {
         </div>
         <div className="card w-full max-w-sm shrink-0 shadow-2xl py-3">
           <h2 className="font-semibold text-xl text-center">SignUp Page</h2>
-          <form onSubmit={handleSignUp} className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <fieldset className="fieldset">
               <label className="label">Name</label>
               <input
@@ -120,7 +72,7 @@ const SignUp = () => {
               />
               <label className="label">Email</label>
               <input
-                type="email"
+                type="email" {...register('email')}
                 name="email"
                 className="input"
                 placeholder="Email"
@@ -129,29 +81,27 @@ const SignUp = () => {
               <label className="label">Password</label>
               <div className="relative">
                 <input
-                  type={visible ? "text" : "password"}
-                  name="password"
+                  name="password" {...register('password',{required:true, minLength: 6})}
                   className="input"
                   placeholder="Password"
                   required
                 />
+                {
+                  errors.password?.type === 'required' && <p className="text-red-500">Password is required</p>
+                }
+                {
+                  errors.password?.type === 'minLength' &&  <p className="text-red-500">Password must be 6 characters or longer</p>
+                }
                 <button
                   type="button"
-                  onClick={() => setVisible(!visible)}
                   className="btn btn-xs absolute top-2 right-7"
                 >
-                  {visible ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
               <button type="submit" className="btn btn-primary mt-4">
                 SignUp
               </button>
-              <p className="mt-2 text-center">
-                {error && (
-                  <p className="text-red-500 text-sm text-center mt-2">
-                    {error}
-                  </p>
-                )}
+              <p className="mt-2 text-center">               
                 Already Have An Account ?{" "}
                 <Link className="text-secondary" to="/SignIn">
                   SignIn
