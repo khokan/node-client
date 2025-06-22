@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+
+.urbanist-font > {
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+/* https://i.ibb.co/670jYjdy/1.png
+https://i.ibb.co/d0WZJ8jM/2.png
+https://i.ibb.co/XrVKhjZT/3.png
+https://i.ibb.co/Kc8sPrqr/4.png
+https://i.ibb.co/G3Ps0zP5/5.png
+https://i.ibb.co/X1kBb1H/6.png */
