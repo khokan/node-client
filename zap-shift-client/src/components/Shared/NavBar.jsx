@@ -9,30 +9,20 @@ const NavBar = () => {
     signOutUser();
   };
 
-  const links = (
+  const links = 
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      {/* for applicant */}
-      {user && (
-        <li>
-          <NavLink to="/myApplications">My Applications</NavLink>
-        </li>
-      )}
-      {/* for employeer */}
-      {user && (
-        <>
-          <li>
-            <NavLink to="/addJob">Add Job</NavLink>
-          </li>
-          <li>
-            <NavLink to="/myPostedJobs">My Posted Jobs</NavLink>
-          </li>
-        </>
-      )}
+      <li>
+        <NavLink to="/coverage">Coverage</NavLink>
+      </li>
+      <li>
+        <NavLink to="/sendParcel">Send a Parcel</NavLink>
+      </li>
+     
     </>
-  );
+  
 
   return (
     <div className="navbar bg-base-100 shadow-sm">

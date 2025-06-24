@@ -4,6 +4,7 @@ import SignIn from "../components/Authentication/SignIn";
 import SignUp from "../components/Authentication/SignUp";
 import Home from "../components/Home/Home";
 import Coverage from "../components/Services/Coverage";
+import SendParcel from "../components/Services/SendParcel";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "coverage",
         Component: Coverage,
+      },
+      {
+        path: "sendParcel",
+        Component: SendParcel,
       },
     ],
   },
