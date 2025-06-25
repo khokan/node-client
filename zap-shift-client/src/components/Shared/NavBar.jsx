@@ -9,7 +9,7 @@ const NavBar = () => {
     signOutUser();
   };
 
-  const links = 
+  const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
@@ -20,9 +20,15 @@ const NavBar = () => {
       <li>
         <NavLink to="/sendParcel">Send a Parcel</NavLink>
       </li>
-     
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard">DashBoard</NavLink>
+          </li>
+        </>
+      )}
     </>
-  
+  );
 
   return (
     <div className="navbar bg-base-100 shadow-sm">

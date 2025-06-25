@@ -7,20 +7,24 @@ import "./index.css";
 import router from "./router/router";
 import { Toaster } from "react-hot-toast";
 
-
 const root = document.getElementById("root");
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // You can also use <link> for styles
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // ..
 AOS.init();
+// Create a client
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
-    <AuthProvider>
-      <div className="urbanist-font max-w-7xl mx-auto">
-        <RouterProvider router={router} />
-        <Toaster position="top-right" />
-      </div>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <div className="urbanist-font max-w-7xl mx-auto">
+          <RouterProvider router={router} />
+          <Toaster position="top-right" />
+        </div>
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
