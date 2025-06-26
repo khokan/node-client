@@ -3,10 +3,13 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", user?.email],
     queryFn: async () => {
@@ -65,6 +68,10 @@ const MyParcels = () => {
       }
     }
   };
+
+  const handlePay = (id) => {
+    navigate(`/dashboard/payment/${id}`)
+  }
 
   return (
     <div className="overflow-x-auto w-full">
@@ -127,7 +134,7 @@ const MyParcels = () => {
                 <div className="flex gap-2">
                   {parcel.payment_status === "unpaid" && (
                     <button
-                      onClick={() => onPay(parcel._id)}
+                      onClick={() => handlePay(parcel._id)}
                       className="btn btn-xs btn-success"
                     >
                       Pay
