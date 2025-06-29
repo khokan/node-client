@@ -1,12 +1,12 @@
-import axios from "axios";
-import React from "react";
-import useAuth from "./useAuth";
+import axios from 'axios';
+import React from 'react';
 
 const axiosSecure = axios.create({
-  baseURL: `${import.meta.env.VITE_NODE_SERVER_URL}`,
+    baseURL: `http://localhost:5000`
 });
+
 const useAxiosSecure = () => {
-  return axiosSecure;
+    return axiosSecure;
 };
 
 export default useAxiosSecure;

@@ -1,60 +1,75 @@
 import { createBrowserRouter } from "react-router";
-import MainLayout from "../layouts/MainLayout";
-import SignIn from "../components/Authentication/SignIn";
-import SignUp from "../components/Authentication/SignUp";
-import Home from "../components/Home/Home";
-import Coverage from "../components/Services/Coverage";
-import SendParcel from "../components/Services/SendParcel";
-import PrivateRouter from "./PrivateRouter";
-import MyParcels from "../components/Dashboard/MyParcels";
-import DashBoardLayout from "../layouts/DashBoardLayout";
-import Payment from "../components/Dashboard/Payment/Payment";
+import RootLayout from "../layouts/RootLayout";
+import Home from "../pages/Home/Home/Home";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/Authentication/Login/Login";
+import Register from "../pages/Authentication/Register/Register";
+import Coverage from "../pages/Coverage/Coverage";
+import PrivateRoute from "../routes/PrivateRoute";
+import SendParcel from "../pages/SendParcel/SendParcel";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import TrackParcel from "../pages/Dashboard/TrackParcel/TrackParcel";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
-    Component: MainLayout,
+    Component: RootLayout,
     children: [
       {
         index: true,
-        Component: Home,
+        Component: Home
       },
       {
-        path: "signin",
-        Component: SignIn,
-      },
-      {
-        path: "signup",
-        Component: SignUp,
-      },
-      {
-        path: "coverage",
+        path: 'coverage',
         Component: Coverage,
+        loader: () => fetch('./serviceCenter.json')
       },
       {
-        path: "sendParcel",
-        Component: SendParcel,
-      },
-      {
-        path: "dashboard",
-        element: (
-          <PrivateRouter>
-            <DashBoardLayout />
-          </PrivateRouter>
-        ),
-        children: [
-          {
-            path: "myParcels",
-            Component: MyParcels,
-          },
-          {
-            path: "payment/:id",
-            Component: Payment,
-          },
-        ],
-      },
-    ],
+        path: 'sendParcel',
+        element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>,
+        loader: () => fetch('./serviceCenter.json')
+      }
+    ]
   },
+  {
+    path: '/',
+    Component: AuthLayout,
+    children: [
+      {
+        path: 'login',
+        Component: Login
+      },
+      {
+        path: 'register',
+        Component: Register
+      }
+    ]
+  },
+  {
+    path: '/dashboard',
+    element: <PrivateRoute>
+      <DashboardLayout></DashboardLayout>
+    </PrivateRoute>,
+    children: [
+      {
+        path: 'myParcels',
+        Component: MyParcels
+      },
+      {
+        path: 'payment/:parcelId',
+        Component: Payment
+      },
+      {
+        path: 'paymentHistory',
+        Component: PaymentHistory
+      },
+      {
+        path: 'track',
+        Component: TrackParcel
+      }
+    ]
+  }
 ]);
-
-export default router;

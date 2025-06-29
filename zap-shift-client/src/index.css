@@ -1,36 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
-@plugin "daisyui";
 
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: #3b82f6; /* Blue-500: Professional, trustworthy */
-  --color-secondary: #f97316; /* Orange-500: Energetic, engaging */
-  --color-accent: #1e293b; /* Slate-500: Neutral, soft contrast */
-  --color-base-200: #f8fafc; /* Slate-50: Very light background */
-  --color-base-300: #e2e8f0; /* Slate-200: Light, subtle borders */
+@plugin "daisyui"{
+  themes: light --default, dark;
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
-  default: false;
-  --color-primary: #60a5fa; /* Blue-400: Brighter for dark mode */
-  --color-secondary: #fb923c; /* Orange-400: Softer for dark mode */
-  --color-accent: #94a3b8; /* Slate-400: Lighter contrast */
-  --color-base-200: #1e293b; /* Slate-800: Dark background */
-  --color-base-300: #334155; /* Slate-700: Darker borders */
+  default: true;
+  --color-primary: #CAEB66;
+  --color-secondary: teal;
 }
 
-.urbanist-font > {
+.font-urbanist {
   font-family: "Urbanist", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
-/* https://i.ibb.co/670jYjdy/1.png
-https://i.ibb.co/d0WZJ8jM/2.png
-https://i.ibb.co/XrVKhjZT/3.png
-https://i.ibb.co/Kc8sPrqr/4.png
-https://i.ibb.co/G3Ps0zP5/5.png
-https://i.ibb.co/X1kBb1H/6.png */
