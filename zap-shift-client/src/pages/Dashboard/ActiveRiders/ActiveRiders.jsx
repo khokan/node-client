@@ -9,12 +9,7 @@ const ActiveRiders = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // 🟡 Load Active Riders with React Query
-  const {
-    data: riders = [],
-    isLoading,
-    refetch,
-    error,
-  } = useQuery({
+  const { data: riders = [], isLoading, refetch, error } = useQuery({
     queryKey: ["activeRiders"],
     queryFn: async () => {
       const res = await axiosSecure.get("/riders/active");
@@ -35,9 +30,7 @@ const ActiveRiders = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axiosSecure.patch(`/riders/${id}/status`, {
-        status: "deactivated",
-      });
+      await axiosSecure.patch(`/riders/${id}/status`, { status: "deactivated" });
       Swal.fire("Done", "Rider has been deactivated", "success");
       refetch();
     } catch (error) {
@@ -69,9 +62,7 @@ const ActiveRiders = () => {
 
       {/* 🌀 Loading/Error */}
       {isLoading && <p className="text-center">Loading active riders...</p>}
-      {error && (
-        <p className="text-center text-red-500">Failed to load riders</p>
-      )}
+      {error && <p className="text-center text-red-500">Failed to load riders</p>}
 
       {/* 📊 Rider Table */}
       {!isLoading && !error && (
@@ -97,14 +88,8 @@ const ActiveRiders = () => {
                   <td>{rider.phone}</td>
                   <td>{rider.region}</td>
                   <td>{rider.district}</td>
-                  <td>
-                    {rider.bike_brand} - {rider.bike_registration}
-                  </td>
-                  <td>
-                    <span className="badge badge-success text-white">
-                      Active
-                    </span>
-                  </td>
+                  <td>{rider.bike_brand} - {rider.bike_registration}</td>
+                  <td><span className="badge badge-success text-white">Active</span></td>
                   <td>
                     <button
                       onClick={() => handleDeactivate(rider._id)}

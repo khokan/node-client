@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useLoaderData } from "react-router";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 
 const BeARider = () => {
   const { user } = useAuth();
@@ -18,34 +19,12 @@ const BeARider = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const axiosSecure = useAxiosSecure();
 
-  const [serviceCenters, setServiceCenters] = useState([]);
+  const serviceCenters = useLoaderData();
 
-  useEffect(() => {
-    fetch("/serviceCenter.json")
-      .then((res) => res.json())
-      .then((data) => {
-        // ✅ Defensive check
-        if (Array.isArray(data)) {
-          setServiceCenters(data);
-        } else {
-          console.error("Expected array but got:", data);
-          setServiceCenters([]);
-        }
-        // adjust based on structure
-        console.log(data);
-        setServiceCenters(
-          Array.isArray(data) ? data : data.serviceCenters || []
-        );
-      });
-  }, []);
-
-  //   const serviceCenters = useLoaderData();
-  console.log(serviceCenters);
-
-  const regions = [...new Set(serviceCenters.map((s) => s.region))];
-  const districts = serviceCenters
-    .filter((s) => s.region === selectedRegion)
-    .map((s) => s.district);
+    const regions = [...new Set(serviceCenters.map((s) => s.region))];
+    const districts = serviceCenters
+        .filter((s) => s.region === selectedRegion)
+        .map((s) => s.district);
 
   const onSubmit = async (data) => {
     const riderData = {
@@ -58,7 +37,8 @@ const BeARider = () => {
 
     console.log("Rider Application:", riderData);
 
-    axiosSecure.post("/riders", riderData).then((res) => {
+        axiosSecure.post('/riders', riderData)
+            .then(res => {
       if (res.data.insertedId) {
         Swal.fire({
           icon: "success",
@@ -66,7 +46,9 @@ const BeARider = () => {
           text: "Your application is pending approval.",
         });
       }
-    });
+            })
+
+
 
     // Send to your backend here
     reset();
@@ -75,9 +57,7 @@ const BeARider = () => {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-xl shadow">
       <h2 className="text-2xl font-bold mb-2">Become a Rider</h2>
-      <p className="text-gray-500 mb-6">
-        Fill out the form to apply as a delivery rider.
-      </p>
+            <p className="text-gray-500 mb-6">Fill out the form to apply as a delivery rider.</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 gap-4">
@@ -105,9 +85,7 @@ const BeARider = () => {
             {...register("age", { required: true, min: 18 })}
           />
           {errors.age && (
-            <span className="text-red-500 text-sm">
-              You must be 18 or older
-            </span>
+                        <span className="text-red-500 text-sm">You must be 18 or older</span>
           )}
 
           {/* Phone */}
@@ -118,9 +96,7 @@ const BeARider = () => {
             {...register("phone", { required: true })}
           />
           {errors.phone && (
-            <span className="text-red-500 text-sm">
-              Phone number is required
-            </span>
+                        <span className="text-red-500 text-sm">Phone number is required</span>
           )}
 
           {/* National ID */}
@@ -147,9 +123,7 @@ const BeARider = () => {
               </option>
             ))}
           </select>
-          {errors.region && (
-            <span className="text-red-500 text-sm">Region is required</span>
-          )}
+                    {errors.region && <span className="text-red-500 text-sm">Region is required</span>}
 
           {/* District */}
           <select
@@ -164,9 +138,7 @@ const BeARider = () => {
               </option>
             ))}
           </select>
-          {errors.district && (
-            <span className="text-red-500 text-sm">District is required</span>
-          )}
+                    {errors.district && <span className="text-red-500 text-sm">District is required</span>}
 
           {/* Bike Brand */}
           <input
@@ -187,9 +159,7 @@ const BeARider = () => {
             {...register("bike_registration", { required: true })}
           />
           {errors.bike_registration && (
-            <span className="text-red-500 text-sm">
-              Registration number is required
-            </span>
+                        <span className="text-red-500 text-sm">Registration number is required</span>
           )}
 
           {/* Additional Info (optional) */}
@@ -200,10 +170,7 @@ const BeARider = () => {
           ></textarea>
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary text-black w-full mt-4"
-        >
+                <button type="submit" className="btn btn-primary text-black w-full mt-4">
           Submit Rider Application
         </button>
       </form>
