@@ -31,10 +31,8 @@ const PaymentForm = () => {
         return '...loading'
     }
 
-    console.log(parcelInfo)
     const amount = parcelInfo.cost;
     const amountInCents = amount * 100;
-    console.log(amountInCents);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
