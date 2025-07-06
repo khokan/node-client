@@ -6,6 +6,7 @@ import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 const Profile = () => {
   const { user } = useAuth()
   const [role, isRoleLoading] = useRole()
+  console.log(role)
   if (isRoleLoading) return <LoadingSpinner />
   return (
     <div className='flex justify-center items-center h-screen'>
