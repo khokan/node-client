@@ -4,12 +4,14 @@ import { imageUpload } from "../../../api/utils";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddPlant = () => {
   const { user } = useAuth();
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(false);
+  const axiosSecure = useAxiosSecure();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setIsUploading(true);
@@ -35,10 +37,7 @@ const AddPlant = () => {
         },
       };
 
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_NODE_SERVER_URL}/add-plant`,
-        plantData
-      );
+      const { data } = await axiosSecure.post("/add-plant", plantData);
       toast.success("Plant Data Added Successfully, Yeee!");
       form.reset();
       console.log(data);
