@@ -24,6 +24,8 @@ import PendingDeliveries from "../pages/Dashboard/PendingDeliveries/PendingDeliv
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import MyEarnings from "../pages/Dashboard/MyEarnings/MyEarnings";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import PaymentSSL from "../pages/Dashboard/Payment/PaymentSSL";
+import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +98,14 @@ export const router = createBrowserRouter([
       {
         path: 'payment/:parcelId',
         Component: Payment
+      },
+       {
+        path: 'PaymentSSL/:parcelId',
+        Component: PaymentSSL
+      },
+      {
+        path: 'payment/payment-success',
+        Component: PaymentSuccess
       },
       {
         path: "paymentHistory",
