@@ -1,0 +1,16 @@
+******* Firebase Deploy ***********
+
+# Create project in firebase 
+# https://firebase.google.com/docs/cli#install_the_firebase_cli
+  Install Firebase CLI
+# Register app in project
+# Add host and create host domain 
+# Authentication added
+    --authorize domain in Authentication settings 
+# Add Firebase Hosting to your project
+
+
+# firebase login
+    -- firebase login
+    -- firebase init
+    -- firebase deploy --only hosting:'your-site-name'
